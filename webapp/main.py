@@ -1,4 +1,4 @@
-from transformers import pipeline, set_seed
+from transformers import pipeline
 from fastapi import FastAPI, Response
 from pydantic import BaseModel
 
@@ -18,5 +18,5 @@ def root():
 
 @app.post('/generate')
 def predict(body: Body):
-    results = generator("Hello, I'm a language model,", max_length=35, num_return_sequences=1)
+    results = generator(body.text, max_length=35, num_return_sequences=1)
     return results[0]
